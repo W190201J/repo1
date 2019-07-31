@@ -1,11 +1,4 @@
-<!DOCTYPE html><!--/*技术支持，小庄602842076     验证：商城技术支持*/
-/*技术支持，小庄602842076    验证：商城技术支持*/
-/*技术支持，小庄602842076    验证：商城技术支持*/
-/*技术支持，小庄602842076    验证：商城技术支持*/
-/*技术支持，小庄602842076    验证：商城技术支持*/
-/*https://shop116998991.taobao.com/*/
-/*https://shop116998991.taobao.com/*/
-/*https://shop116998991.taobao.com/*/-->
+
 
 <html>
 <head>
@@ -41,7 +34,7 @@
                     <h1 class="logo" title="外卖超人">
                         <a href="index.html"></a>
                     </h1>
-                    <span class="page-name"> | 注册</span>
+                    <span class="page-name"> 注册</span>
                 </section>
                 
             
@@ -56,7 +49,14 @@
     <div class="log-box" id="registerPageBox">
         <div class="form-group w275">
             <label for="">手机号码</label>
-            <input type="text" id="rPhone" maxlength="11" class="form-text" placeholder="请输入你的手机号码" />
+            <input type="text" id="phone" name="phone" maxlength="11" class="form-text" placeholder="请输入你的手机号码" />
+        </div>
+        <div class="form-group w275">
+            <label for="">请选择注册角色</label>
+            <select id ="role" name ="role">
+              <option value ="0">我是用户</option>
+			  <option value ="1">我是店家</option>
+			</select>
         </div>
         <div class="form-error-message"></div>
 
@@ -71,32 +71,33 @@
                 </div>
                 <div class="captcha-item">
                     <div class="form-group captcha clearfix">
-                        <input type="text" id="imgCaptcha" disabled="disabled" maxlength="4" class="form-text" placeholder="输入验证码"/>
-                        <span><img id="captchaImg" _src="/captcha/" src="/captcha/" alt="验证码"/></span>
+                        <input type="text" id="imgCaptcha"  maxlength="4" class="form-text" placeholder="输入验证码"/>
+                        <span><img id="captchaImg" onclick="change()" alt="看不清，换一张" title="看不清，换一张"/></span>
                     </div>
                     <div class="form-error-message"></div>
                 </div>
             </div>
         </div>
 
+
         <div class="form-group w275">
             <label for="">登录密码</label>
-            <input type="password" id="rPass" maxlength="10" class="form-text" onpaste="return false" placeholder="输入登录密码 6-10个字符"/>
+            <input type="password" id="rPass1" maxlength="10" class="form-text" onpaste="return false" placeholder="输入登录密码 6-10个字符"/>
         </div>
-        <div class="form-error-message"></div>
+        <div class="form-error-message"></div>    
         <div class="form-group w275">
             <input type="password" id="rPass2" maxlength="10" class="form-text" onpaste="return false" placeholder="输入登录密码 6-10个字符"/>
         </div>
         <div class="form-error-message"></div>
 
-        <div class="checkbox form-group clearfix mb5">
+       <!--  <div class="checkbox form-group clearfix mb5">
             <input type="checkbox" checked="checked" id="rAgree" value="true">
             <label for="rAgree" class="fl fs12">我同意外卖超人</label>
             <span class="fl fs12"><a class="yo" target="_blank" href="/terms-and-conditions/">"注册条款"</a></span>
         </div>
-        <div class="form-error-message"></div>
+        <div class="form-error-message"></div> -->
         <div>
-            <button class="form-btn" id="registerPageBtn">确认注册</button>
+            <button onclick="add()" class="form-btn" id="registerPageBtn">确认注册</button>
         </div>
         
     </div>
@@ -125,16 +126,17 @@
     </footer>
     
     
-    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-    
+    <!-- <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script> -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.serializejson.min.js"></script>
     <script>
         // use new sms code url
-        var ajax_customer_user_register_start = '/ajax/customer_user_register_start/';
-        var common_sms_code = '/ajax/common_sms_code/';
-        var common_validate_sms_code = '/ajax/common_validate_sms_code/';
-        var ajax_customer_user_register_register = '/ajax/customer_user_register_register/';
+/*         var ajax_customer_user_register_start = '/ajax/customer_user_register_start/';
+	        var common_sms_code = '/ajax/common_sms_code/';
+	        var common_validate_sms_code = '/ajax/common_validate_sms_code/';
+	        var ajax_customer_user_register_register = '/ajax/customer_user_register_register/'; */
     </script>
-<script type="text/javascript" src="js/loginVaildate.js"></script>
+<!-- <script type="text/javascript" src="js/loginVaildate.js"></script> -->
 
     <!-- Baidu Analytics -->
 
@@ -154,16 +156,77 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
 
 <!-- Google Analytics Code -->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+/*   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-33138478-1', 'waimaichaoren.com');
   ga('send', 'pageview');
-  ga('require', 'ecommerce', 'ecommerce.js');
+  ga('require', 'ecommerce', 'ecommerce.js'); */
 </script>
 <!-- End Google Analytics Code -->
+
+
+<script type="text/javascript">
+
+$(function(){
+	  loadImg();
+ });
+ 
+ function loadImg(){
+	   $("#captchaImg").attr('src','../img');
+	    
+ }
+
+ function change(){
+	   $.ajax({			  
+			method:'get',
+			url:'../img',
+			
+			success:function(data){
+				 $("#captchaImg").attr('src','/img');
+			},				
+			
+		});
+	  
+ }
+
+ function add() {
+	 //检测两次密码一致和手机验证
+	 
+	 if(checkPhone($('#phone').val())&&$('#rPass1').val()==$('#rPass2').val()){
+		
+		$.ajax({
+			url:'/register',
+			method:'post',
+			data:{phone:$('#phone').val(),role:$('#role').val(),password:$('#rPass2').val(),verify:$('#captchaImg').val()},
+			success:function (data){
+				if(data=='1'){
+					alert('注册成功');
+					location.href='index.html';
+				}else{
+					alert('注册失败,可能该手机号已注册');
+				}
+			},
+			
+			dataType:'text'
+			
+			
+		});
+	 }
+	}
+
+ function checkPhone(code){ 
+	    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+	    if(!(myreg.test(code))){ 
+	        return false; 
+	    } 
+	    return true;
+	}
+
+</script>
+
 
 </body>
 </html>

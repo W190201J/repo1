@@ -1,5 +1,3 @@
-
-
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -38,20 +36,37 @@
     <section class="member-wrap" id="member-wrap">
         <div class="common-width posr">
             
-                <div class="member-box fs12" login-box info="loginInfo">
-                    <a href="javascript:void(0)" ng-click="logoinDialogShow()">登录</a>
+                <div id="logbe" class="member-box fs12" login-box info="loginInfo">
+                    <a href="login.html">登录</a>
                     <span>/</span>
-                    <a href="javascript:void(0)" ng-click="registerDialogShow()">注册</a>
+                    <a href="register.html">注册</a>
                     <span>|</span>
                     <a href="member_order.html">查看订单</a>
                 </div>
+                <div id = "log" style="display:none;">
+                        <ul class="member logging" ng-init="loginInfo=true">
+                            <li><a href="index.html" class="index">首页</a></li>
+                            <li class="userName">
+                                <a href="#" rel="nofollow" draw-user>18005151538<em></em></a>
+                                <div>
+                                    <p><a href="/account/center/manage/"  rel="nofollow">账号管理</a></p>
+                                    <p><a href="/account/center/address/"  rel="nofollow">地址管理</a></p>
+                                    <p class="no-bo"><a id="logout" href="/account/logout/" referer-url rel="nofollow">退出</a></p>
+                                </div>
+                            </li>
+                            <li class=""><a href="member_order.html" class="order-center"  rel="nofollow">我的订单</a></li>
+                            <li class=""><a href=""  rel="nofollow">我的收藏</a></li>
+                            <li class=""><a href="/account/gift/center/"  rel="nofollow">氪星礼品站</a></li>
+                            <li class="phone-client "><a href="/app/"  rel="nofollow" target="_blank"><span>手机客户端</span></a></li>
+                        </ul>
+   					</div>
             
         </div>
     </section>
 	<section class="common-width">
         <section class="city-list-wrap clearfix">
             <h1 class="fl">
-                <a class="frontpage-logo" href="index.html">外卖超人</a>
+                <a class="frontpage-logo" href="index.html">长沙外卖超人</a>
             </h1>
             <div class="city-list-box back-yellow">
                 <div class="dropdown-box">
@@ -396,10 +411,10 @@
     </form>
 </dh-dialog>
 <script>
-    var common_sms_code = '/ajax/common_sms_code/';
+   /*  var common_sms_code = '/ajax/common_sms_code/';
     var ajax_customer_user_register_start = '/ajax/customer_user_register_start/';
     var common_validate_sms_code = '/ajax/common_validate_sms_code/';
-    var ajax_customer_user_register_register = '/ajax/customer_user_register_register/';
+    var ajax_customer_user_register_register = '/ajax/customer_user_register_register/'; */
 </script>
 
     <dh-dialog class="disnone" height="500" type="street" header="请选择最靠近你的地址" show="addressShow">
@@ -496,7 +511,7 @@
     </ul>
     
     <script type="text/javascript" src="js/angular.min.js"></script>
-    <script src="js/common.js"></script>
+    <!-- <script src="js/common.js"></script> -->
     
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=5cd6dcb00bc675bf26c9b4ab2af0759a"></script>
     <script src="js/service.js"></script>
@@ -510,8 +525,46 @@
 
     
     <script>angular.bootstrap(document, ["app"]);</script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="js/jwt.js"></script>
+	<script type="text/javascript">
+	 $(function(){
+		  $.ajax({
+				method : 'get',
+				url : '/chk',
+				headers : createAuthorizationTokenHeader(),
+				success : function(data) {
+					
+					if (data == 'fail') {
+						location.href='login.html';
+					} 
+					if (checkPhone(data)) {					
+						  var html=' <span class="username">Hey，用户'+data+'你好! </span>'+
+                         '<span class="my_account"><a target="_blank" href="member_index.html">个人中心</a></span>'+
+                         '<span class="split">|</span>'+
+                         '<span class="logout"><a id="logout" href="#">退出</a></span>';
+                         
+						 $("#logbe").html(html); 
+					}
+				},
+				dataType : 'text'
+			});
+	  })
+	
+	
+	 function checkPhone(code){ 
+	    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+	    if(!(myreg.test(code))){ 
+	        return false; 
+	    } 
+	    return true;
+	}
 
-
+	
+	
+	
+	</script>
 
 
 </body>

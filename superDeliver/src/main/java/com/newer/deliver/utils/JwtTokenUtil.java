@@ -38,15 +38,15 @@ public class JwtTokenUtil {
 	 * @param pwd
 	 * @return
 	 */
-	public String createJwt(String uid, String str) {
+	public String createJwt(String uid) {
 		Date now = clock.now();
 		// 添加JWT的包含部分，有三部分：头部（header）、载荷（payload）、签证（signature）.
 		JwtBuilder jwtBuilder = Jwts.builder().setHeaderParam("typ", "JWT").setIssuedAt(now) // 设置jwt创建时间
 				.setIssuer(uid) // 设置当前用户信息
 				.setExpiration(calculateExpirationDate(now)) // 设置失效时间
 				.setSubject("uid")
-				.claim("time", str)//通过claim()方法可添加若干属性，也可以添加一个对象
-				.claim("times", 123321)//通过claim()方法可添加若干属性，也可以添加一个对象
+				//.claim("time", str)//通过claim()方法可添加若干属性，也可以添加一个对象
+				//.claim("times", 123321)//通过claim()方法可添加若干属性，也可以添加一个对象
 				.signWith(SignatureAlgorithm.HS512, secret);// 设置加密算法、指定密钥
 		
 		return jwtBuilder.compact();

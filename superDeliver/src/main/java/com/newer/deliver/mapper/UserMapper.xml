@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- namespace:命名空间，该值与接口保持一致 -->
+<mapper namespace="com.newer.deliver.mapper.UserMapper">
+	<!-- 开启二级缓存，默认情况下没有有开启的 -->
+	<cache />
+	<!-- 定义Pojo类属性与数据表字段对应关系 -->
+
+	<resultMap type="com.newer.deliver.pojo.User" id="user">
+		<id property="u_id" column="u_id"/>
+		<result property="phone" column="phone" />
+		<result property="password" column="password"/>
+		<result property="role" column="role"/>
+		
+	</resultMap>
+	
+	
+	
+	
+	<select id="login" resultMap="user">
+		select u_id,phone,password,role from user where phone= #{phone}
+	</select>
+	<insert id="insert">
+		insert into user (phone,password,role) values (#{phone},#{password},#{role})
+	
+	</insert>
+	
+	
+</mapper>
