@@ -50,17 +50,17 @@
                         <ul class="member logging" ng-init="loginInfo=true">
                             <li><a href="index.html" class="index">首页</a></li>
                             <li class="userName">
-                                <a href="member_index.html" rel="nofollow" draw-user>18005151538<em></em></a>
+                                <a href="member_index.html" class="phone" rel="nofollow" draw-user><em></em></a>
                                 <div>
                                     <p><a href="member_index.html"  rel="nofollow">账号管理</a></p>
                                     <p><a href="member_addr.html"  rel="nofollow">地址管理</a></p>
-                                    <p class="no-bo"><a id="logout" href="#" referer-url rel="nofollow">退出</a></p>
+                                    <p class="no-bo"><a id="logout" href="javascript:;" onclick="logout()" rel="nofollow">退出</a></p>
                                 </div>
                             </li>
                             <li class=""><a href="member_order.html" class="order-center"  rel="nofollow">我的订单</a></li>
                             <li class=""><a href="member_collect.html"  rel="nofollow">我的收藏</a></li>
-                            <li class=""><a href="gifts.html"  rel="nofollow">氪星礼品站</a></li>
-                            <li class="phone-client "><a href="#"  rel="nofollow" target="_blank"><span>手机客户端</span></a></li>
+                            <!-- <li class=""><a href="gifts.html"  rel="nofollow">氪星礼品站</a></li>
+                            <li class="phone-client "><a href="#"  rel="nofollow" target="_blank"><span>手机客户端</span></a></li> -->
                         </ul>
                     
                 </div>
@@ -68,10 +68,10 @@
         
         <div id="main-box">
              <!--二维码-->
-            <div class="qrCode-frame" ng-hide="qrCodeStatus">
+<!--             <div class="qrCode-frame" ng-hide="qrCodeStatus">
                 <img src="images/wx.png" alt="扫描二维码" />
                 <em ng-click="qrCodeStatus=true">X</em>
-            </div>
+            </div> -->
         
             <div ng-controller="colorAction">
                 <div class="dayColor_two"></div>
@@ -96,9 +96,9 @@
                     <li >
                         <a href="member_addr.html"  rel="nofollow">地址管理</a>
                     </li>
-                    <li >
+                    <!-- <li >
                         <a href="gifts.html" rel="nofollow">氪星礼品站</a>
-                    </li>
+                    </li> -->
                 </ul>
             </aside>
             <article class="fl user-center-main">
@@ -504,6 +504,11 @@
     <script>angular.bootstrap(document, ["app"]);</script>
 
     <!-- Baidu Analytics -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="js/jwt.js"></script>
+	<script type="text/javascript" src="static/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="js/initMember.js"></script>
 
 </body>
 </html>

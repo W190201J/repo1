@@ -28,7 +28,7 @@
          var i= e.length;while (i--){document.createElement(e[i])}
     </script>
     <![endif]-->
-    <title>个人中心 - 账号管理</title>
+    <title>个人中心 - 地址管理</title>
 </head>
 <body class="day " ng-controller="bodyCtrl"  day-or-night>
     <section class="common-back" id="wrapBackground">
@@ -39,10 +39,10 @@
                         <a class="logo base-logo" href="index.html">外卖超人</a>
                     </h1>
                     
-                        <ul class="member logging" ng-init="loginInfo=true">
+                         <ul class="member logging" ng-init="loginInfo=true">
                             <li><a href="index.html" class="index">首页</a></li>
                             <li class="userName">
-                                <a href="member_index.html" class="phone" rel="nofollow" draw-user><em></em></a>
+                                <a href="member_index.html" class="phone" rel="nofollow" draw-user>18005151538<em></em></a>
                                 <div>
                                     <p><a href="member_index.html"  rel="nofollow">账号管理</a></p>
                                     <p><a href="member_addr.html"  rel="nofollow">地址管理</a></p>
@@ -60,11 +60,11 @@
         
         <div id="main-box">
              <!--二维码-->
-            <!-- <div class="qrCode-frame" ng-hide="qrCodeStatus">
+           <!--  <div class="qrCode-frame" ng-hide="qrCodeStatus">
                 <img src="images/wx.png" alt="扫描二维码" />
                 <em ng-click="qrCodeStatus=true">X</em>
-            </div>
-         -->
+            </div> -->
+        
             <div ng-controller="colorAction">
                 <div class="dayColor_two"></div>
                 <div class="dayColor_one"></div>
@@ -76,16 +76,16 @@
         <div class="user-center-main-box common-width clearfix">
             <aside class="fl">
                 <ul>
-                    <li >
+                    <li>
                         <a href="member_index.html" rel="nofollow">账号管理</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="member_order.html" rel="nofollow">我的订单</a>
                     </li>
                     <li >
                         <a href="member_collect.html" rel="nofollow">我的收藏</a>
                     </li>
-                    <li class="active">
+                    <li  class="active">
                         <a href="member_addr.html"  rel="nofollow">地址管理</a>
                     </li>
 <!--                     <li >
@@ -127,17 +127,18 @@
                 </tr>
             </table>
         </article>
-        <article >
+        <article ng-show="userAddressList.length < 8">
             <header class="mb10">
                 <h2>新增地址</h2><strong>(最多只能保存 8 个有效地址)</strong>
             </header>
             <section class="add-address-box">
-                <form name="userAddressForm">
+                <form novalidate="true" name="userAddressForm">
                     <div class="form-group mb10 row">
                         <label class="col-2">收单人：</label>
                         <div class="col-6">
-                            <input type="text" required maxlength="10" name="name"
-                                placeholder="如何称呼" >
+                            <input type="text" required maxlength="10"
+                                ng-class="{error:userAddressForm.submit && userAddressForm.name.$invalid}" name="name"
+                                placeholder="如何称呼" ng-model="userAddress.customer_name">
                         </div>
                         <span ng-if="userAddressForm.submit && userAddressForm.name.$invalid">
                             <span class="vaildate-error">称呼不能为空</span>
@@ -246,49 +247,64 @@
         </div>
     </dh-dialog>
     
-    <dh-dialog class="disnone" header="修改登录密码" height="500" show="showChangePass">
-        <div ng-controller="changePasswordCtrl" class="change-password-box">
-            <div class="form-group">
-                <label>当前密码</label>
-                <div>
-                    <input type="password" ng-class="{error:user.passwordMessage}" onpaste="return false" maxlength="10" placeholder="请输入当前使用的登录密码" ng-model="user.password" />
-                    <span class="vaildate-error" ng-if="user.passwordMessage">
-                        <span ng-bind="user.passwordMessage"></span>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group mb10">
-                <label>新的密码</label>
-                <div>
-                    <input type="password" ng-class="{error:user.newPasswordMessage}" onpaste="return false" maxlength="10"  placeholder="请输入 6-10个字符" ng-model="user.newPassword" />
-                    <span class="vaildate-error" ng-if="user.newPasswordMessage">
-                        <span ng-bind="user.newPasswordMessage"></span>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group mb20">
-                <div>
-                    <input type="password" ng-class="{error:user.newPassword2Message}" onpaste="return false" maxlength="10"  placeholder="请再次输入新的密码" ng-model="user.newPassword2"/>
-                    <span class="vaildate-error" ng-if="user.newPassword2Message">
-                        <span ng-bind="user.newPassword2Message"></span>
-                    </span>
-                </div>
-            </div>
-            <div class="tr">
-                <button class="btn small-btn btn-success" ng-click="changePassSubmit()" ng-disabled="isSubmit" ng-bind="submitText"></button>
-                <button class="btn small-btn btn-cancel" ng-click="changePassCancel()">取消</button>
-            </div>
-        </div>
-    </dh-dialog>
-    <dh-dialog class="disnone" type="alert" height="500" index="1001" header="" show="requestSuccess">
-        <div class="alert-box">
-            <p>修改密码成功</p>
-            <p class="fs12">3秒后自动关闭</p>
-        </div>
-    </dh-dialog>
-    <dh-dialog class="disnone" type="alert" height="500" index="1001" header="" show="requestError">
+    <dh-dialog class="disnone" type="alert" index="1001" header="" show="errorShow">
         <div class="alert-box error">
-            <p>修改密码失败</p>
+            <p ng-bind="errorMsg"></p>
+        </div>
+    </dh-dialog>
+    <dh-dialog class="disnone" type="alert" index="1002" header="" show="confirm">
+        <div class="alert-box warning">
+            <p ng-bind="confirmMsg" class="mb10"></p>
+            <div>
+                <button class="btn btn-success small-btn" ng-click="submitConfirm()">确认</button>
+                <button class="btn btn-cancel small-btn" ng-click="cancelConfirm()">取消</button>
+            </div>
+        </div>
+    </dh-dialog>
+    <dh-dialog class="disnone" header="修改地址" width="420" show="showEditUserAddress">
+        <div ng-controller="userAddressCtrl">
+            <form novalidate="true" name="editUserAddressForm" class="address-from">
+            <div class="form-group row mb20">
+                <label class="require col-3">收单人：</label>
+                <div class="col-8">
+                    <input type="text" required maxlength="10"
+                           ng-class="{error:editUserAddressForm.submit && editUserAddressForm.name.$invalid}" name="name"
+                           placeholder="您的称呼" ng-model="editUserAddress.customer_name">
+                </div>
+                <div class="col-8 col-offset-3" ng-if="editUserAddressForm.submit && editUserAddressForm.name.$invalid">
+                    <span class="vaildate-error">称呼不能为空</span>
+                </div>
+            </div>
+            <div class="form-group row mb20">
+                <label class="require col-3">手机号码：</label>
+                <div class="col-8">
+                    <input type="text" maxlength="11" required mobile
+                           ng-class="{error:editUserAddressForm.submit && editUserAddressForm.contact.$invalid}" name="contact"
+                           placeholder="您的联系方式" ng-model="editUserAddress.customer_phone">
+                </div>
+                <div class="col-8 col-offset-3" ng-if="editUserAddressForm.submit && editUserAddressForm.contact.$error.required">
+                    <span class="vaildate-error">联系方式不能为空</span>
+                </div>
+                <div class="col-8 col-offset-3" ng-if="editUserAddressForm.submit && !editUserAddressForm.contact.$error.required && editUserAddressForm.contact.$error.mobile">
+                    <span class="vaildate-error">请输入正确的11位手机号码</span>
+                </div>
+            </div>
+            <div class="form-group row mb30">
+                <label class="require col-3">送餐地址：</label>
+                <div class="col-8">
+                    <input type="text" required
+                           ng-class="{error:editUserAddressForm.submit && editUserAddressForm.address.$invalid}" name="address"
+                           placeholder="详细地址，如武定西路1189号606室" ng-model="editUserAddress.delivery_address">
+                </div>
+                <div class="col-8 col-offset-3" ng-if="editUserAddressForm.submit && editUserAddressForm.address.$invalid">
+                    <span class="vaildate-error">送餐地址不能为空</span>
+                </div>
+            </div>
+            <div class="form-group tc">
+                <button class="btn btn-success normal-btn" ng-click="submitUserAddress()">确认</button>
+                <button class="btn btn-cancel normal-btn" ng-click="cancelUserAddress()">取消</button>
+            </div>
+        </form>
         </div>
     </dh-dialog>
 
@@ -314,79 +330,18 @@
     <!--[if lt IE 9]><script src="js/fix.js"></script><![endif]-->
     
     
-    <script>
-        var reviewUrl = "/mobile/ajax/order_review/",favoriteUrl = "/ajax/restaurant/0/favorite/";
-    </script>
-    <script src="js/user_center.js"></script>
+
+    <script src="js/user_center_address.js"></script>
 
     
     <script>angular.bootstrap(document, ["app"]);</script>
 
     <!-- Baidu Analytics -->
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.serializejson.min.js"></script>
 	<script type="text/javascript" src="js/jwt.js"></script>
 	<script type="text/javascript" src="static/layer/2.4/layer.js"></script>
 	<script type="text/javascript" src="js/initMember.js"></script>
-	<script type="text/javascript">
-	/*  $(function(){
-		  $.ajax({
-				method : 'get',
-				url : '/chk',
-				headers : createAuthorizationTokenHeader(),
-				success : function(data) {
-					
-					if (data == 'fail') {
-						location.href='login.html';
-					} 
-					if (checkPhone(data)) {					                
-						 $(".phone").html(data); 
-					}
-				},
-				dataType : 'text'
-			});
-	  });
-	  
-	  
-	function checkPhone(code){ 
-	    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-	    if(!(myreg.test(code))){ 
-	        return false; 
-	    } 
-	    return true;
-	}
 
-	 function logout() {
-		 var dat= $('#usename').text();
-		 
-		 dat = dat.split(',')[0];
-	    layer.confirm("真的要退出吗?", function(index) {    	
-	    	$.ajax({
-				method:'post',
-				url:'../out',
-				data:{phone:dat},
-				success:function(data){
-					if(data=="退出成功"){
-						removeJwtToken();	
-						layer.msg(data,{icon: 6,time: 2000,
-							end:function(){
-								location.href = "index.html";		
-							}
-						});
-						
-					}else{
-						layer.msg('退出失败，请重试');
-					}
-					
-					
-				},
-				dataType:'text'
-
-			});
-	      //window.location.href = "index.html"
-	    })
-	  }
-	 */
-	</script>
 </body>
 </html>

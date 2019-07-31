@@ -78,7 +78,7 @@ app.controller('bodyCtrl',["$scope","$timeout","$http",function(scope,timeout,ht
         scope.refundRight = false;
     }
 }])
-app.controller("changePasswordCtrl",["$scope",'formVaildate','$http',function(scope,fem,http){
+/*app.controller("changePasswordCtrl",["$scope",'formVaildate','$http',function(scope,fem,http){
     scope.$on('reset-change-password',function(){
         scope.user = {}
         scope.isSubmit = false;
@@ -130,7 +130,14 @@ app.controller("changePasswordCtrl",["$scope",'formVaildate','$http',function(sc
     scope.changePassCancel = function(){
         scope.$emit('change-password-close');
     }
+}])*/
+app.controller("changePasswordCtrls",["$scope",'formVaildate','$http',function(scope,fem,http){
+
+    scope.changePassCancel = function(){
+        scope.$emit('change-password-close');
+    }
 }])
+
 app.directive("successReview",function(){
     return{
         restrict:'A',

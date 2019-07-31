@@ -42,17 +42,17 @@
                         <ul class="member logging" ng-init="loginInfo=true">
                             <li><a href="index.html" class="index">首页</a></li>
                             <li class="userName">
-                                <a href="member_index.html" rel="nofollow" draw-user>18005151538<em></em></a>
+                                <a href="member_index.html" class="phone" rel="nofollow" draw-user><em></em></a>
                                 <div>
                                     <p><a href="member_index.html"  rel="nofollow">账号管理</a></p>
                                     <p><a href="member_addr.html"  rel="nofollow">地址管理</a></p>
-                                    <p class="no-bo"><a id="logout" href="#" referer-url rel="nofollow">退出</a></p>
+                                    <p class="no-bo"><a id="logout" href="javascript:;" onclick="logout()" rel="nofollow">退出</a></p>
                                 </div>
                             </li>
                             <li class=""><a href="member_order.html" class="order-center"  rel="nofollow">我的订单</a></li>
                             <li class=""><a href="member_collect.html"  rel="nofollow">我的收藏</a></li>
-                            <li class=""><a href="gifts.html"  rel="nofollow">氪星礼品站</a></li>
-                            <li class="phone-client "><a href="#"  rel="nofollow" target="_blank"><span>手机客户端</span></a></li>
+                            <!-- <li class=""><a href="gifts.html"  rel="nofollow">氪星礼品站</a></li>
+                            <li class="phone-client "><a href="#"  rel="nofollow" target="_blank"><span>手机客户端</span></a></li> -->
                         </ul>
                     
                 </div>
@@ -60,11 +60,11 @@
         
         <div id="main-box">
              <!--二维码-->
-            <div class="qrCode-frame" ng-hide="qrCodeStatus">
+            <!-- <div class="qrCode-frame" ng-hide="qrCodeStatus">
                 <img src="images/wx.png" alt="扫描二维码" />
                 <em ng-click="qrCodeStatus=true">X</em>
             </div>
-        
+         -->
             <div ng-controller="colorAction">
                 <div class="dayColor_two"></div>
                 <div class="dayColor_one"></div>
@@ -88,9 +88,9 @@
                     <li >
                         <a href="member_addr.html"  rel="nofollow">地址管理</a>
                     </li>
-                    <li >
+<!--                     <li >
                         <a href="gifts.html" rel="nofollow">氪星礼品站</a>
-                    </li>
+                    </li> -->
                 </ul>
             </aside>
             <article class="fl user-center-main">
@@ -100,19 +100,20 @@
         <ul class="fs12">
             <li>
                 <label>手机号码：</label>
-                <span>18005151538</span>
+                <span id="phone" class="phone" ></span>
             </li>
             <li>
                 <label>登录密码：</label>
                 <span>**********</span>
                 <i class="icon edit-icon" ng-click="showChangePassword()"></i>
+               <!-- <i class="icon edit-icon" onclick="changePass()"></i> -->
             </li>
-            <li>
+           <!--  <li>
                 <label>订单信息：</label>
                 <span>总计0单</span>
                 <span>成功0单</span>
             </li>
-            <li><label>氪 星 币：</label><span ng-bind="0|number"></span>个&nbsp;&nbsp;<a href="/account/gift/center/" title="兑换礼品" class="c_f60">兑换礼品</a></li>
+            <li><label>氪 星 币：</label><span ng-bind="0|number"></span>个&nbsp;&nbsp;<a href="/account/gift/center/" title="兑换礼品" class="c_f60">兑换礼品</a></li> -->
         </ul>
      </section>
 
@@ -181,41 +182,35 @@
         </div>
     </dh-dialog>
     
-    <dh-dialog class="disnone" header="修改登录密码" height="500" show="showChangePass">
-        <div ng-controller="changePasswordCtrl" class="change-password-box">
+    <dh-dialog id="ch"class="disnone" header="修改登录密码" height="500" show="showChangePass">
+        <div ng-controller="changePasswordCtrls" class="change-password-box">
             <div class="form-group">
                 <label>当前密码</label>
                 <div>
-                    <input type="password" ng-class="{error:user.passwordMessage}" onpaste="return false" maxlength="10" placeholder="请输入当前使用的登录密码" ng-model="user.password" />
-                    <span class="vaildate-error" ng-if="user.passwordMessage">
-                        <span ng-bind="user.passwordMessage"></span>
-                    </span>
+                    <input type="password" id="old" maxlength="10" placeholder="请输入当前使用的登录密码"  />
+             
                 </div>
             </div>
             <div class="form-group mb10">
                 <label>新的密码</label>
                 <div>
-                    <input type="password" ng-class="{error:user.newPasswordMessage}" onpaste="return false" maxlength="10"  placeholder="请输入 6-10个字符" ng-model="user.newPassword" />
-                    <span class="vaildate-error" ng-if="user.newPasswordMessage">
-                        <span ng-bind="user.newPasswordMessage"></span>
-                    </span>
+                    <input type="password"  id="new1" maxlength="10"  placeholder="请输入 6-10个字符"  />
+                    
                 </div>
             </div>
             <div class="form-group mb20">
                 <div>
-                    <input type="password" ng-class="{error:user.newPassword2Message}" onpaste="return false" maxlength="10"  placeholder="请再次输入新的密码" ng-model="user.newPassword2"/>
-                    <span class="vaildate-error" ng-if="user.newPassword2Message">
-                        <span ng-bind="user.newPassword2Message"></span>
-                    </span>
+                    <input type="password" id="new2"  maxlength="10"  placeholder="请再次输入新的密码" />
+
                 </div>
             </div>
             <div class="tr">
-                <button class="btn small-btn btn-success" ng-click="changePassSubmit()" ng-disabled="isSubmit" ng-bind="submitText"></button>
+                <button class="btn small-btn btn-success" onclick="changePass()" >修改</button>
                 <button class="btn small-btn btn-cancel" ng-click="changePassCancel()">取消</button>
             </div>
         </div>
     </dh-dialog>
-    <dh-dialog class="disnone" type="alert" height="500" index="1001" header="" show="requestSuccess">
+    <!-- <dh-dialog class="disnone" type="alert" height="500" index="1001" header="" show="requestSuccess">
         <div class="alert-box">
             <p>修改密码成功</p>
             <p class="fs12">3秒后自动关闭</p>
@@ -225,7 +220,7 @@
         <div class="alert-box error">
             <p>修改密码失败</p>
         </div>
-    </dh-dialog>
+    </dh-dialog> -->
 
      <ul class="site-fixed">
         <li class="scroll-top"><img src="images/scroll_top1.png" alt=""/> </li>
@@ -258,7 +253,17 @@
     <script>angular.bootstrap(document, ["app"]);</script>
 
     <!-- Baidu Analytics -->
-
-
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="js/jwt.js"></script>
+	<script type="text/javascript" src="static/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="js/initMember.js"></script>
+	<script type="text/javascript">
+	function changePass(){
+		alert("dwoajf");
+	}
+	
+	
+	</script>
 </body>
 </html>

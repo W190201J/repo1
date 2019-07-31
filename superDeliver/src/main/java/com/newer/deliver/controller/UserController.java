@@ -40,7 +40,11 @@ public class UserController {
 	}
 	
 
-	
+	@PostMapping("/out")
+	public ResponseEntity<?> out(User user,HttpServletRequest request) {
+		request.getSession().removeAttribute("session_user");
+		return new ResponseEntity<String>("退出成功", HttpStatus.OK);
+	}
 	
 	@PostMapping("/login")
 	public  ResponseEntity<?> login (User user, HttpServletRequest request) {
