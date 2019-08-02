@@ -70,10 +70,10 @@
             </h1>
             <div class="city-list-box back-yellow">
                 <div class="dropdown-box">
-                    <div class="dropdown-select">
+<!--                     <div class="dropdown-select">
                         <span class="dropdown-text" id="cityName" cityName="Shanghai">上海站</span>
-                        <span class="caret"></span></div>
-                    <ul class="dropdown-menu">
+                        <span class="caret"></span></div> -->
+                    <!-- <ul class="dropdown-menu">
                         
                             <li ng-click="setCityAndRedirect('suzhou', '/suzhou/');">
                                 <a href="javascript:;">苏州站</a>
@@ -89,7 +89,7 @@
                         
 
                         
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </section>
@@ -122,8 +122,8 @@
             <div class="clearfix brand-restaurant-body">
                 <div class="brand-restaurant-log fl"></div>
                 <div class="restaurant-list fl">
-                    <ul class="clearfix">
-                        <li>
+                    <ul class="clearfix" id="top">
+<!--                          <li>
                             <a href="shop_brand.html" target="_blank">
                                 <img src="images/restaurant_03.png" alt="巴贝拉">
                             </a>
@@ -158,8 +158,8 @@
                                 <img src="images/bifengtang.png" alt="避风塘">
                             </a>
                             <a href="shop_brand.html" target="_blank" class="restaurant-name fs14">避风塘</a>
-                        </li>
-                        <li>
+                        </li> -->
+                     <!--   <li>
                             <a href="shop_brand.html" target="_blank">
                                 <img src="images/restaurant_07.png" alt="味千拉面">
                             </a>
@@ -194,7 +194,7 @@
                                 <img src="images/restaurant_16.png" alt="CoCo壱番屋">
                             </a>
                             <a href="shop_brand.html" target="_blank" class="restaurant-name fs14">CoCo壱番屋</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -208,15 +208,11 @@
                       <div class="clearfix">
                           <div class="search-input-box">
                               <div class="search-input-inner">
-                                  <input type="text" ng-model="keyword" autocomplete placeholder="请输入心仪餐厅？" class="search-input" ng-initial value="" onkeyup="this.setAttribute('value',this.value);"/>
-                                  <ul ng-class="{disblock:searchResultIsShow}" class="search-result-box">
-                                      <li ng-class="{active:currentActiveIndex==$index}" ng-repeat="item in datas track by $index" ng-click="searchResultSelect($index)">
-                                          <h5 ng-bind="item"></h5>
-                                      </li>
-                                  </ul>
+                                  <input type="text"   placeholder="请输入心仪餐厅？" class="search-input" />
+                              
                               </div>
                           </div>
-                          <button class="btn btn-success fs18 fl"  ng-disabled="searchBtnDisabled" ng-bind="searchBtnName">查找餐厅</button>
+                          <button class="btn btn-success fs18 fl" onclick="search()" >查找餐厅</button>
                           
                       </div>
                       <div class="hot-area clearfix fs12">
@@ -528,8 +524,14 @@
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.serializejson.min.js"></script>
 	<script type="text/javascript" src="js/jwt.js"></script>
-	<script type="text/javascript" src="static/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+
 	<script type="text/javascript">
+	layui.use('layer', function(){
+		  var layer = layui.layer;
+		  
+		
+	});
 	 $(function(){
 		  $.ajax({
 				method : 'get',
@@ -559,8 +561,36 @@
 				},
 				dataType : 'text'
 			});
+		  
+		  
+		  loadTopShop();
 	  })
+	  
+	  
+	 /*加载商店*/
 	
+	 function loadTopShop() {
+		 $.get('../shopListTop',function(data){
+				var li='';
+				$.each(data,function(i,v){
+					
+					li+=`
+						<li>
+	                        <a href="#" target="_blank" title="NO.${i+1}，浏览量${v.standby1}">
+	                            <img src="images/restaurant_03.png" alt="${v.shop_name}">
+	                        </a>
+	                        <a href="#" target="_blank" class="restaurant-name fs14">${v.shop_name}</a>
+                    	</li>
+					
+					`;
+				});
+				$('#top').html(li);
+				
+				
+			},'json');
+	}
+	 
+	 
 	 /* 注销 */
   function logout() {
 	 var dat= $('#usename').text();
@@ -601,6 +631,14 @@
 	    return true;
 	}
 
+	
+	
+	/*查找*/
+	function search() {
+		layer.msg("hahha")
+		
+	}
+	
 	
 	
 	
