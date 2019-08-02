@@ -66,10 +66,10 @@
             </ol>
         </div>
     
-<form action="#" method="post">
-    <div class="fill-data-box" id="passStep">
+
+    <div class="fill-data-box" >
         <div class="fill-data">
-            <div class="title txt-center">您正在为账号180****1538设置密码</div>
+            <div class="title txt-center" id="cphone"></div>
             <div class="form-group w275">
                 <input type="password" maxlength="10" id="pass" name="pass" class="form-text" placeholder="请输入6-10位的新密码"/>
             </div>
@@ -79,11 +79,11 @@
             </div>
             <div class="form-error-message"></div>
             <div>
-                <button class="form-btn" id="confirm">确认</button>
+                <button class="form-btn" onclick="nextStep()" id="conf">确认</button>
             </div>
         </div>
     </div>
-</form>
+
 
     </div>
 
@@ -109,10 +109,10 @@
     </footer>
     
     
-    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+  <!--   <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script> -->
     
     <script>
-        var mobile_validate_url = '/ajax/common_validate_sms_code/',
+       /*  var mobile_validate_url = '/ajax/common_validate_sms_code/',
             email_validate_url = '',
             finish_send_mail_url = '',
             password_reset_url = '/account/password/reset_page/',
@@ -124,14 +124,82 @@
             captcha_url = '/captcha/',
 
             ajax_password_reset_via_mobile_start = '/ajax/password_reset_via_mobile_start/',
-            common_sms_code = '/ajax/common_sms_code/'
+            common_sms_code = '/ajax/common_sms_code/' */
     </script>
-    <script src="js/forget_passwd.js"></script>
+    <!-- <script src="js/forget_passwd.js"></script> -->
 
     <!-- Baidu Analytics -->
 
 <!-- End Baidu Tracking Code -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="js/jwt.js"></script>
+	<script type="text/javascript" src="js/initMember.js"></script>  
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+	<script type="text/javascript">
+	
+	$(function(){
+		layui.use('layer', function(){
+			var layer = layui.layer;
+				 
+				
+			
+			//获取传过来的手机号码:?phone=xxx
+			var px=location.search;	
+			var ps=px.split('=');
+			var phone=ps[1];//获取手机号码
+			
+			if(checkPhone(phone)){		
+				$("#cphone").html('您正在为账号'+phone+'设置密码');
+			}else{
+				layer.msg("获取手机号码失败，准备跳转上一页",{icon: 5,time: 2000,
+					end:function(){
+						location.href = "pwd_forget.html";		
+					}
+				});
+			}
+			
+			
+			
+			});
+	});
+
+function nextStep() {
+	
+	var px=location.search;	
+	var ps=px.split('=');
+	var phone=ps[1];//获取手机号码
+	
+	var newpass2 = $("#pass").val();
+	var newpass1 = $("#pass2").val();
+	if(newpass1==newpass2&&newpass1!=""){
+		$.ajax({
+			url:'/changPass',
+			method:'put',
+			data:{phone:phone,password:newpass2},
+			success:function (data){
+				
+				if(data=='1'){
+					layer.msg("修改成功",{icon: 6,time: 2000,
+						end:function(){
+							location.href = "pwd_success.html";		
+						}
+					});
+				}else{
+					layer.msg('密码修改失败，请重试');
+				}
+			},
+			
+			dataType:'text'
+		}); 
+	}else{
+		layer.msg('两次密码输入不一致，请重试');
+	}
+	
+}
 
 
+
+	</script>
 </body>
 </html>

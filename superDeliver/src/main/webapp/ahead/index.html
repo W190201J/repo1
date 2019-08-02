@@ -537,16 +537,24 @@
 				headers : createAuthorizationTokenHeader(),
 				success : function(data) {
 					
+					var d = data.split("+");
 					if (data == 'fail') {
 						location.href='login.html';
 					} 
-					if (checkPhone(data)) {					
-						  var html=' <span class="username" id="usename">'+data+',你好! </span>'+
+					if (checkPhone(d[0])) {	
+						
+						if(d[1]=='0'){
+							
+						  var html=' <span class="username" id="usename">'+d[0]+',你好! </span>'+
                          '<span class="my_account"><a target="_blank" href="member_index.html">个人中心</a></span>'+
                          '<span class="split">|</span>'+
                          '<span class="logout"><a id="logout" href="javascript:;" onclick="logout()">退出</a></span>';
-                         
+                                              
 						 $("#logbe").html(html); 
+						}
+						if(d[1]=='1'){
+							location.href='#';
+						}
 					}
 				},
 				dataType : 'text'

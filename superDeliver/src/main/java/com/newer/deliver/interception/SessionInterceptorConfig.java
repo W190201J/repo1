@@ -13,7 +13,7 @@ public class SessionInterceptorConfig implements WebMvcConfigurer {
 		//注册拦截器
 		registry.addInterceptor(createInterceptor())
 		.addPathPatterns("/**")
-		.excludePathPatterns("/ahead/login.html","/ahead/index.html","/ahead/register.html","/","/login","/register","/ahead/css/**","/ahead/js/**","/ahead/images/**","/img");
+		.excludePathPatterns("/changPass","/checkPhone","/ahead/pwd_reset.html","/ahead/pwd_success.html","/ahead/pwd_forget.html","/ahead/login.html","/ahead/index.html","/ahead/register.html","/","/login","/register","/ahead/css/**","/ahead/js/**","/ahead/images/**","/img");
 		
 		//addPathPatterns("/**"):表所允许所有请求都进入拦截器
 		//excludePathPatterns():用来配置排除的请求(不会进入拦截器)

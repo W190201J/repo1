@@ -10,23 +10,37 @@
 	<!-- 定义Pojo类属性与数据表字段对应关系 -->
 
 	<resultMap type="com.newer.deliver.pojo.User" id="user">
-		<id property="u_id" column="u_id"/>
+		<id property="u_id" column="u_id" />
 		<result property="phone" column="phone" />
-		<result property="password" column="password"/>
-		<result property="role" column="role"/>
-		
+		<result property="password" column="password" />
+		<result property="role" column="role" />
+
 	</resultMap>
-	
-	
-	
-	
+
+
+
+
 	<select id="login" resultMap="user">
-		select u_id,phone,password,role from user where phone= #{phone}
+		select u_id,phone,password,role
+		from user where phone= #{phone}
 	</select>
-	<insert id="insert">
-		insert into user (phone,password,role) values (#{phone},#{password},#{role})
-	
+	<insert id="insert" parameterType="com.newer.deliver.pojo.User">
+		insert into user
+		(phone,password,role) values (#{phone},#{password},#{role})
+
 	</insert>
-	
-	
+	<update id="updatePass"
+		parameterType="com.newer.deliver.pojo.User">
+		update user set password = #{password} where phone=
+		#{phone}
+
+
+	</update>
+
+	<select id="queryByPhone" resultMap="user" parameterType="com.newer.deliver.pojo.User">
+
+		select u_id,phone,password,role from user where phone = #{phone}
+
+	</select>
+
 </mapper>

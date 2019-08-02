@@ -1,10 +1,12 @@
+
 $(function(){
+	
 		  $.ajax({
 				method : 'get',
 				url : '/chk',
 				headers : createAuthorizationTokenHeader(),
 				success : function(data) {
-					
+					data = data.split("+")[0];									
 					if (data == 'fail') {
 						location.href='login.html';
 					} 
@@ -15,8 +17,8 @@ $(function(){
 				dataType : 'text'
 			});
 	  });
-	  
-	  
+
+
 	function checkPhone(code){ 
 	    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
 	    if(!(myreg.test(code))){ 

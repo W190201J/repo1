@@ -16,4 +16,9 @@ public interface UserService {
 	public User login(String phone);
 	
 
+	//修改密码
+	public int changPass(User user);
+
+	//检测用户是否存在
+	public User checkPhone(User user);
 }

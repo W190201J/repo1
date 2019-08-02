@@ -25,4 +25,16 @@ public class UserServiceImpl implements UserService {
 		return umper.login(phone);
 	}
 
+	//修改密码
+	@Override
+	public int changPass(User user) {
+		return umper.updatePass(user);
+	}
+
+	//检测用户是否存在
+	@Override
+	public User checkPhone(User user) {
+		return umper.queryByPhone(user);
+	}
+
 }

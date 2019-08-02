@@ -18,6 +18,13 @@ public interface UserMapper {
 	
 	//验证(登录)
 	public User login(String phone);
+
+
+	//更改密码
+	public int updatePass(User user);
+
+	//检测用户是否存在
+	public User queryByPhone(User user);
 	
 
 
